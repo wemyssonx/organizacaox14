@@ -17,7 +17,7 @@ export const DEPARTAMENTOS = {
     nome: 'Marketing',
     cor: 'from-blue-500 to-blue-600',
     borderColor: 'border-blue-500',
-    bgColor: 'bg-blue-500/10',
+    bgColor: 'bg-blue-600 text-white',
     funcoes: [
       'Mídias Sociais (Postagens e ADS)',
       'Comunicação em Campo (Carro/Bike/Moto de Som)',
@@ -32,7 +32,7 @@ export const DEPARTAMENTOS = {
     nome: 'Licenciamento com Órgãos',
     cor: 'from-purple-500 to-purple-600',
     borderColor: 'border-purple-500',
-    bgColor: 'bg-purple-500/10',
+    bgColor: 'bg-purple-600 text-white',
     funcoes: [
       'Contato com Órgãos Públicos',
       'Autorização para Carro de Som (se houver)',
@@ -44,7 +44,7 @@ export const DEPARTAMENTOS = {
     nome: 'Logística de Restaurante',
     cor: 'from-green-500 to-green-600',
     borderColor: 'border-green-500',
-    bgColor: 'bg-green-500/10',
+    bgColor: 'bg-green-600 text-white',
     funcoes: [
       'Pesquisa e Seleção de Restaurantes',
       'Coordenação de Cardápios e Opções Alimentares',
@@ -56,7 +56,7 @@ export const DEPARTAMENTOS = {
     nome: 'Logística Financeira e de Compras',
     cor: 'from-yellow-500 to-yellow-600',
     borderColor: 'border-yellow-500',
-    bgColor: 'bg-yellow-500/10',
+    bgColor: 'bg-yellow-600 text-white',
     funcoes: [
       'Gestão de Orçamento e Planejamento',
       'Acompanhamento de Pagamentos',
@@ -68,7 +68,7 @@ export const DEPARTAMENTOS = {
     nome: 'Logística de Acomodações',
     cor: 'from-pink-500 to-pink-600',
     borderColor: 'border-pink-500',
-    bgColor: 'bg-pink-500/10',
+    bgColor: 'bg-pink-600 text-white',
     funcoes: [
       'Pesquisa e Seleção de Casas ou Hotéis',
       'Negociação e Condições de Hospedagem',
@@ -80,7 +80,7 @@ export const DEPARTAMENTOS = {
     nome: 'Logística de Transporte',
     cor: 'from-cyan-500 to-cyan-600',
     borderColor: 'border-cyan-500',
-    bgColor: 'bg-cyan-500/10',
+    bgColor: 'bg-cyan-600 text-white',
     funcoes: [
       'Levantamento de Transporte',
       'Organização dos Pontos de Encontro',
@@ -92,7 +92,7 @@ export const DEPARTAMENTOS = {
     nome: 'Logística de Esporte e Lazer',
     cor: 'from-orange-500 to-orange-600',
     borderColor: 'border-orange-500',
-    bgColor: 'bg-orange-500/10',
+    bgColor: 'bg-orange-600 text-white',
     funcoes: [
       'Criação dos times de esportes',
       'Pesquisa e Escolha do Espaço',
@@ -108,7 +108,7 @@ export const DEPARTAMENTOS = {
     nome: 'Logística de Mutirões',
     cor: 'from-indigo-500 to-indigo-600',
     borderColor: 'border-indigo-500',
-    bgColor: 'bg-indigo-500/10',
+    bgColor: 'bg-indigo-600 text-white',
     funcoes: [
       'Planejamento de Ações e Organização',
       'Coordenação de Equipes de Voluntários',
@@ -122,7 +122,7 @@ export const DEPARTAMENTOS = {
     nome: 'Logística de Segurança',
     cor: 'from-red-500 to-red-600',
     borderColor: 'border-red-500',
-    bgColor: 'bg-red-500/10',
+    bgColor: 'bg-red-600 text-white',
     funcoes: [
       'Organização da equipe de segurança',
       'Direcionamento do percurso',
