@@ -1,0 +1,111 @@
+Crie um aplicativo web completo e funcional usando a plataforma Bubble.io (no-code/low-code), inspirado no estilo de interface do Trello para gerenciamento de equipes de evento. O app se chama "Organizador do 14º Aniversário da Filosofia X no Pará" e serve para cadastrar e organizar participantes em departamentos específicos, com foco em UI/UX intuitiva, concisa e mobile-friendly. Use um layout de boards (como listas verticais ou colunas Kanban) onde cada departamento é uma coluna/lista, e cada participante é um card móvel que pode ser arrastado entre colunas se necessário (para reatribuição). Inclua autenticação simples via e-mail/senha para administradores editarem, e visualização pública para todos verem a organização sem editar.
+Estrutura Geral do App:
+
+Página Inicial (Dashboard): Uma visão geral com um board principal estilo Trello. Cada coluna representa um departamento (listados abaixo). Dentro de cada coluna, cards representam participantes, mostrando nome, telefone, e-mail, cidade/estado e função escolhida. Cards devem ser clicáveis para expandir detalhes. Adicione um botão flutuante para "Novo Cadastro" que abre um formulário modal. Inclua filtro por departamento e busca por nome/telefone. Use cores temáticas: azul escuro para fundo, branco para cards, e ícones simples (ex: megafone para Marketing).
+Formulário de Cadastro: Um form intuitivo com campos obrigatórios: Nome, Telefone, E-mail, Cidade/Estado. Em seguida, uma seção de seleção de departamento (dropdown com os listados abaixo), e dentro de cada departamento, radio buttons ou dropdown para funções específicas (listadas por departamento). Inclua opção "Outro" para funções customizadas. Ao submeter, o participante é adicionado como card na coluna do departamento escolhido. Integre com Google Sheets/Excel para importação inicial de dados existentes (via API ou upload CSV), mapeando colunas do Excel para os campos (ex: nome na coluna A, telefone na B, etc.).
+Funcionalidades Adicionais:
+
+Arrastar e soltar cards entre colunas para reatribuir departamentos.
+Edição de cards: Administradores podem editar detalhes ou remover.
+Exportação: Botão para exportar o board como PDF ou CSV, organizado por departamento.
+Notificações: Envie e-mail automático ao cadastrado confirmando inscrição e função.
+Responsividade: Garanta que funcione bem em desktop e mobile, com colunas empilhadas em telas pequenas.
+Segurança: Dados armazenados em database do Bubble, com autenticação para edições.
+
+
+
+Departamentos e Funções Específicas (baseado no formulário fornecido):
+
+Marketing:
+
+Mídias Sociais (Postagens e ADS) - Criar conteúdos (posts, artes, textos), Gerenciar anúncios pagos (Meta ADS), Acompanhar engajamento e métricas.
+Comunicação em Campo (Carro/Bike/Moto de Som) - Auxiliar na organização de rotas, coordenar horários e mensagens a serem transmitidas, apoiar gravação de spots de áudio e video.
+Diagramação e Produção de Manuais – Desenvolver manuais de instrução do evento, organizando de forma clara e visual todas as informações necessárias para orientar participantes, equipes e voluntários.
+Planejamento e Cronograma de Posts - Definir calendário de publicações antes e durante o evento, garantir regularidade na comunicação digital, apoiar no disparo de conteúdos oficiais.
+Canais de Contato e Atendimento - Monitorar WhatsApp oficial no dia do evento, apoiar na comunicação rápida com participantes, garantir que informações cheguem ao público certo.
+Inovação e Experiências Criativas – Responsável por desenvolver novidades e soluções inéditas para o evento, propondo ideias que tragam impacto, originalidade e que nunca antes foram vistas.
+Outro.
+
+
+Licenciamento com Órgãos:
+
+Contato com Órgãos Públicos - Realizar o contato com a Prefeitura, PM, Bombeiros, Guarda Municipal e Ambulância, organizar os prazos de protocolo e garantir que todos os documentos sejam entregues conforme exigido.
+Autorização para Carro de Som (se houver) - Solicitar e garantir a autorização para o uso de carros de som durante o evento, verificar os detalhes sobre o horário e os locais permitidos para o uso de som alto.
+Documentação e Protocolos – Organizar os documentos necessários (protocolos, ofícios, autorizações), garantindo entrega correta e dentro do prazo.
+Outro.
+
+
+Logística de Restaurante:
+
+Pesquisa e Seleção de Restaurantes - Pesquisar restaurantes ao longo da rota, Verificar capacidade de acomodação dos restaurantes, Confirmar opções variadas de menu para o grupo, Garantir que o restaurante atenda às necessidades alimentares de todos.
+Coordenação de Cardápios e Opções Alimentares - Organizar um cardápio variado, garantir que o cardápio atenda a restrições alimentares, planejar a quantidade necessária de alimentos.
+Recomendações de restaurantes Horários – Fornecer sugestões de horários de refeições.
+Outro.
+
+
+Logística Financeira e de Compras:
+
+Gestão de Orçamento e Planejamento - Definir e controlar o orçamento do evento, controlar as despesas e prever custos futuros.
+Acompanhamento de Pagamentos - Organizar e gerenciar todos os pagamentos relacionados ao evento.
+Relatórios Financeiros - Criar relatórios de custos e despesas, garantindo que todos os gastos sejam documentados.
+Outro.
+
+
+Logística de Acomodações:
+
+Pesquisa e Seleção de Casas ou Hotéis – Identificar e avaliar casas ou hotéis que atendam ao número de participantes.
+Negociação e Condições de Hospedagem - Negociar valores e prazos de pagamento.
+Coordenação de Reservas – Ajudar a coordenar as reservas de acomodações dos participantes.
+Outro.
+
+
+Logística de Transporte:
+
+Levantamento de Transporte - Definir os horários de chegada e saída, planejar as origens e destinos, organizar a mobilidade preferida.
+Organização dos Pontos de Encontro - Definir pontos de encontro como aeroportos, rodoviárias e hotéis.
+Centralização de Lista de Passageiros - Centralizar a lista de passageiros para o transporte.
+Outro.
+
+
+Logística de Esporte e Lazer:
+
+Criação dos times de esportes - Exemplo: Futebol, tennys de mesa, volei.
+Pesquisa e Escolha do Espaço - Pesquisar e selecionar o espaço adequado para o torneio.
+Organização de Ranking - Criar e manter o ranking dos participantes.
+Narração das Partidas - Narrar as partidas e interagir com o público.
+Transmissão ao Vivo - Gerenciar e organizar a transmissão ao vivo das partidas.
+Gestão de Logística de Jogos - Organizar os horários, equipes e partidas.
+Infraestrutura e Suporte - Garantir a infraestrutura do local e o suporte técnico.
+Outro.
+
+
+Logística de Mutirões:
+
+Planejamento de Ações e Organização - Planejar as ações do mutirão e dividir as responsabilidades.
+Coordenação de Equipes de Voluntários - Organizar as equipes de voluntários.
+Gerenciamento de Materiais e Recursos - Coordenar a aquisição e distribuição de materiais.
+Comunicação e Divulgação - Organizar a comunicação interna e externa.
+Gestão de Logística no Dia do Evento - Organizar a logística no dia do evento.
+Outro.
+
+
+Logística de Segurança:
+
+Organização da equipe de segurança – Montar e coordenar a equipe responsável pela vigilância.
+Direcionamento do percurso – Orientar os participantes durante a caminhada.
+Vigilância e Limitação de Áreas – Garantir que áreas restritas sejam monitoradas.
+Identificação e Apoio – Assegurar que todos os membros da equipe estejam identificados.
+Equipe Especial de Vigilância Suprema – Atuar estrategicamente em distância segura ao professor Akel.
+Distribuição de Agua.
+Treinamento de primeiros socorros.
+Outro.
+
+
+
+Instruções para Implementação no Bubble:
+
+Use elementos como Repeating Groups para as colunas de departamentos, com cards como Groups dinâmicos.
+Database: Crie uma data type "Participante" com fields: nome (text), telefone (text), email (text), cidade_estado (text), departamento (text), funcao (text).
+Workflows: Para cadastro, use "Create a new thing" no submit. Para importação, configure um plugin ou API para Google Sheets.
+Estilo: Minimalista, com fontes sans-serif, espaçamento amplo e animações suaves no arrastar.
+Teste: Inclua dados de exemplo para 5-10 participantes fictícios distribuídos nos departamentos para validar.
