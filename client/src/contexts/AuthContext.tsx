@@ -1,41 +1,41 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface AuthContextType {
-  isAuthenticated: boolean;
   isAdmin: boolean;
-  login: (isAdmin: boolean) => void;
+  loginAdmin: (password: string) => boolean;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const ADMIN_PASSWORD = 'admin123';
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const auth = localStorage.getItem('auth');
-    if (auth) {
-      const authData = JSON.parse(auth);
-      setIsAuthenticated(true);
-      setIsAdmin(authData.isAdmin || false);
+    const adminAuth = localStorage.getItem('adminAuth');
+    if (adminAuth === 'true') {
+      setIsAdmin(true);
     }
   }, []);
 
-  const login = (adminStatus: boolean) => {
-    setIsAuthenticated(true);
-    setIsAdmin(adminStatus);
-    localStorage.setItem('auth', JSON.stringify({ isAdmin: adminStatus }));
+  const loginAdmin = (password: string) => {
+    if (password === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      localStorage.setItem('adminAuth', 'true');
+      return true;
+    }
+    return false;
   };
 
   const logout = () => {
-    setIsAuthenticated(false);
     setIsAdmin(false);
-    localStorage.removeItem('auth');
+    localStorage.removeItem('adminAuth');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isAdmin, login, logout }}>
+    <AuthContext.Provider value={{ isAdmin, loginAdmin, logout }}>
       {children}
     </AuthContext.Provider>
   );

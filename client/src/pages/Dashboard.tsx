@@ -214,8 +214,10 @@ export default function Dashboard() {
               key={participant.id}
               participant={participant}
               onClick={() => {
-                setSelectedParticipant(participant);
-                setIsDetailsOpen(true);
+                if (isAdmin) {
+                  setSelectedParticipant(participant);
+                  setIsDetailsOpen(true);
+                }
               }}
             />
           ))}
