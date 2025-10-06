@@ -1,8 +1,10 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Mail, MapPin, Phone, MessageCircle, Copy } from 'lucide-react';
 import type { Participant } from '@/lib/types';
 import { DEPARTAMENTOS } from '@/lib/types';
+import { useToast } from '@/hooks/use-toast';
 
 interface ParticipantCardProps {
   participant: Participant;
@@ -10,12 +12,29 @@ interface ParticipantCardProps {
 }
 
 export default function ParticipantCard({ participant, onClick }: ParticipantCardProps) {
+  const { toast } = useToast();
+  
   const initials = participant.nome
     .split(' ')
     .map(n => n[0])
     .join('')
     .toUpperCase()
     .slice(0, 2);
+
+  const handleWhatsApp = (e: React.MouseEvent, phone: string) => {
+    e.stopPropagation();
+    const cleanPhone = phone.replace(/\D/g, '');
+    window.open(`https://wa.me/${cleanPhone}`, '_blank');
+  };
+
+  const handleCopyEmail = (e: React.MouseEvent, email: string) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(email);
+    toast({
+      title: "Email copiado!",
+      description: "O email foi copiado para a área de transferência.",
+    });
+  };
 
   return (
     <Card 
@@ -56,10 +75,28 @@ export default function ParticipantCard({ participant, onClick }: ParticipantCar
         <div className="flex items-center gap-2 text-muted-foreground">
           <Phone className="h-3.5 w-3.5 flex-shrink-0" />
           <span className="truncate" data-testid={`text-phone-${participant.id}`}>{participant.telefone}</span>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="h-6 w-6 ml-auto"
+            onClick={(e) => handleWhatsApp(e, participant.telefone)}
+            data-testid={`button-whatsapp-${participant.id}`}
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+          </Button>
         </div>
         <div className="flex items-center gap-2 text-muted-foreground">
           <Mail className="h-3.5 w-3.5 flex-shrink-0" />
           <span className="truncate" data-testid={`text-email-${participant.id}`}>{participant.email}</span>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="h-6 w-6 ml-auto"
+            onClick={(e) => handleCopyEmail(e, participant.email)}
+            data-testid={`button-copy-email-${participant.id}`}
+          >
+            <Copy className="h-3.5 w-3.5" />
+          </Button>
         </div>
         <div className="flex items-center gap-2 text-muted-foreground">
           <MapPin className="h-3.5 w-3.5 flex-shrink-0" />

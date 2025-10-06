@@ -2,10 +2,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { Mail, MapPin, Phone, Edit, Trash2 } from 'lucide-react';
+import { Mail, MapPin, Phone, Edit, Trash2, MessageCircle, Copy } from 'lucide-react';
 import type { Participant } from '@/lib/types';
 import { DEPARTAMENTOS, type DepartamentoKey } from '@/lib/types';
 import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
 
 interface ParticipantDetailsModalProps {
   participant: Participant | null;
@@ -23,8 +24,22 @@ export default function ParticipantDetailsModal({
   onDelete 
 }: ParticipantDetailsModalProps) {
   const { isAdmin } = useAuth();
+  const { toast } = useToast();
   
   if (!participant) return null;
+
+  const handleWhatsApp = (phone: string) => {
+    const cleanPhone = phone.replace(/\D/g, '');
+    window.open(`https://wa.me/${cleanPhone}`, '_blank');
+  };
+
+  const handleCopyEmail = (email: string) => {
+    navigator.clipboard.writeText(email);
+    toast({
+      title: "Email copiado!",
+      description: "O email foi copiado para a área de transferência.",
+    });
+  };
 
   const initials = participant.nome
     .split(' ')
@@ -83,10 +98,28 @@ export default function ParticipantDetailsModal({
                 <div className="flex items-center gap-2 text-sm">
                   <Phone className="h-4 w-4 text-muted-foreground" />
                   <span data-testid="text-participant-phone">{participant.telefone}</span>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-7 w-7 ml-auto"
+                    onClick={() => handleWhatsApp(participant.telefone)}
+                    data-testid="button-whatsapp-modal"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                  </Button>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Mail className="h-4 w-4 text-muted-foreground" />
                   <span data-testid="text-participant-email">{participant.email}</span>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-7 w-7 ml-auto"
+                    onClick={() => handleCopyEmail(participant.email)}
+                    data-testid="button-copy-email-modal"
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             </div>
