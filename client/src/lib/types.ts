@@ -1,11 +1,15 @@
+export interface ParticipantAssignment {
+  departamento: DepartamentoKey;
+  funcao: string;
+}
+
 export interface Participant {
   id: string;
   nome: string;
   telefone: string;
   email: string;
   cidadeEstado: string;
-  departamento: string;
-  funcao: string;
+  assignments: ParticipantAssignment[];
 }
 
 export const DEPARTAMENTOS = {

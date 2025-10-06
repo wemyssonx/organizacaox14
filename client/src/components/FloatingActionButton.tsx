@@ -9,7 +9,7 @@ export default function FloatingActionButton({ onClick }: FloatingActionButtonPr
   return (
     <Button
       size="icon"
-      className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-2xl bg-orange hover:bg-orange/90 md:hidden z-50"
+      className="fixed bottom-4 right-4 md:bottom-10 md:right-10 h-16 w-16 rounded-full shadow-2xl bg-orange hover:bg-orange/90 z-50"
       onClick={onClick}
       data-testid="button-fab"
     >

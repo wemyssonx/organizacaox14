@@ -7,8 +7,10 @@ export default function ParticipantCardExample() {
     telefone: '(91) 98765-4321',
     email: 'maria.silva@email.com',
     cidadeEstado: 'Belém, PA',
-    departamento: 'marketing',
-    funcao: 'Mídias Sociais (Postagens e ADS)'
+    assignments: [
+      { departamento: 'marketing' as const, funcao: 'Mídias Sociais (Postagens e ADS)' },
+      { departamento: 'licenciamento' as const, funcao: 'Documentação e Protocolos' }
+    ]
   };
 
   return (

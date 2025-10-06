@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import FilterChips from '@/components/FilterChips';
-import DepartmentColumn from '@/components/DepartmentColumn';
+import ParticipantCard from '@/components/ParticipantCard';
 import ParticipantFormModal from '@/components/ParticipantFormModal';
 import ParticipantDetailsModal from '@/components/ParticipantDetailsModal';
 import FloatingActionButton from '@/components/FloatingActionButton';
@@ -18,8 +18,10 @@ export default function Dashboard() {
       telefone: '(91) 98765-4321',
       email: 'ana.costa@email.com',
       cidadeEstado: 'Belém, PA',
-      departamento: 'marketing',
-      funcao: 'Mídias Sociais (Postagens e ADS)'
+      assignments: [
+        { departamento: 'marketing', funcao: 'Mídias Sociais (Postagens e ADS)' },
+        { departamento: 'licenciamento', funcao: 'Documentação e Protocolos' }
+      ]
     },
     {
       id: '2',
@@ -27,8 +29,9 @@ export default function Dashboard() {
       telefone: '(91) 98765-1234',
       email: 'carlos.lima@email.com',
       cidadeEstado: 'Ananindeua, PA',
-      departamento: 'marketing',
-      funcao: 'Comunicação em Campo (Carro/Bike/Moto de Som)'
+      assignments: [
+        { departamento: 'marketing', funcao: 'Comunicação em Campo (Carro/Bike/Moto de Som)' }
+      ]
     },
     {
       id: '3',
@@ -36,8 +39,10 @@ export default function Dashboard() {
       telefone: '(91) 98765-5678',
       email: 'fernanda.souza@email.com',
       cidadeEstado: 'Belém, PA',
-      departamento: 'seguranca',
-      funcao: 'Organização da equipe de segurança'
+      assignments: [
+        { departamento: 'seguranca', funcao: 'Organização da equipe de segurança' },
+        { departamento: 'mutiroes', funcao: 'Coordenação de Equipes de Voluntários' }
+      ]
     },
     {
       id: '4',
@@ -45,8 +50,9 @@ export default function Dashboard() {
       telefone: '(91) 98765-9012',
       email: 'roberto.santos@email.com',
       cidadeEstado: 'Marituba, PA',
-      departamento: 'financeiro',
-      funcao: 'Gestão de Orçamento e Planejamento'
+      assignments: [
+        { departamento: 'financeiro', funcao: 'Gestão de Orçamento e Planejamento' }
+      ]
     },
     {
       id: '5',
@@ -54,8 +60,30 @@ export default function Dashboard() {
       telefone: '(91) 98765-3456',
       email: 'juliana.alves@email.com',
       cidadeEstado: 'Castanhal, PA',
-      departamento: 'transporte',
-      funcao: 'Organização dos Pontos de Encontro'
+      assignments: [
+        { departamento: 'transporte', funcao: 'Organização dos Pontos de Encontro' },
+        { departamento: 'acomodacoes', funcao: 'Coordenação de Reservas' }
+      ]
+    },
+    {
+      id: '6',
+      nome: 'Pedro Henrique',
+      telefone: '(91) 98765-7890',
+      email: 'pedro.h@email.com',
+      cidadeEstado: 'Belém, PA',
+      assignments: [
+        { departamento: 'esporteLazer', funcao: 'Gestão de Logística de Jogos' }
+      ]
+    },
+    {
+      id: '7',
+      nome: 'Mariana Costa',
+      telefone: '(91) 98765-2345',
+      email: 'mariana.costa@email.com',
+      cidadeEstado: 'Ananindeua, PA',
+      assignments: [
+        { departamento: 'restaurante', funcao: 'Pesquisa e Seleção de Restaurantes' }
+      ]
     }
   ]);
 
@@ -73,7 +101,7 @@ export default function Dashboard() {
         p.telefone.includes(searchQuery);
       
       const matchesDepartment = selectedDepartments.length === 0 ||
-        selectedDepartments.includes(p.departamento as DepartamentoKey);
+        p.assignments.some(a => selectedDepartments.includes(a.departamento));
 
       return matchesSearch && matchesDepartment;
     });
@@ -102,7 +130,7 @@ export default function Dashboard() {
       setParticipants(prev => [...prev, newParticipant]);
       toast({
         title: 'Participante cadastrado!',
-        description: `${data.nome} foi adicionado ao departamento de ${DEPARTAMENTOS[data.departamento as DepartamentoKey].nome}.`,
+        description: `${data.nome} foi adicionado com ${data.assignments.length} ${data.assignments.length === 1 ? 'departamento' : 'departamentos'}.`,
       });
     }
     setIsFormOpen(false);
@@ -120,11 +148,12 @@ export default function Dashboard() {
 
   const handleExport = () => {
     const csv = [
-      ['Nome', 'Telefone', 'Email', 'Cidade/Estado', 'Departamento', 'Função'].join(','),
-      ...participants.map(p => 
-        [p.nome, p.telefone, p.email, p.cidadeEstado, 
-         DEPARTAMENTOS[p.departamento as DepartamentoKey].nome, p.funcao].join(',')
-      )
+      ['Nome', 'Telefone', 'Email', 'Cidade/Estado', 'Departamentos', 'Funções'].join(','),
+      ...participants.map(p => {
+        const departamentos = p.assignments.map(a => DEPARTAMENTOS[a.departamento].nome).join('; ');
+        const funcoes = p.assignments.map(a => a.funcao).join('; ');
+        return [p.nome, p.telefone, p.email, p.cidadeEstado, departamentos, funcoes].join(',');
+      })
     ].join('\n');
 
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -140,7 +169,20 @@ export default function Dashboard() {
     });
   };
 
-  const departmentKeys = Object.keys(DEPARTAMENTOS) as DepartamentoKey[];
+  const departmentStats = useMemo(() => {
+    const stats: Record<DepartamentoKey, number> = {} as any;
+    Object.keys(DEPARTAMENTOS).forEach(key => {
+      stats[key as DepartamentoKey] = 0;
+    });
+    
+    participants.forEach(p => {
+      p.assignments.forEach(a => {
+        stats[a.departamento]++;
+      });
+    });
+    
+    return stats;
+  }, [participants]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -153,7 +195,7 @@ export default function Dashboard() {
         onExport={handleExport}
       />
 
-      <div className="container px-4 py-6">
+      <div className="container max-w-7xl mx-auto px-4 py-6">
         <div className="flex flex-col gap-4 mb-6">
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
           <FilterChips
@@ -163,25 +205,26 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory">
-          {departmentKeys.map(deptKey => {
-            const deptParticipants = filteredParticipants.filter(
-              p => p.departamento === deptKey
-            );
-
-            return (
-              <DepartmentColumn
-                key={deptKey}
-                departmentKey={deptKey}
-                participants={deptParticipants}
-                onParticipantClick={(p) => {
-                  setSelectedParticipant(p);
-                  setIsDetailsOpen(true);
-                }}
-              />
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredParticipants.map(participant => (
+            <ParticipantCard
+              key={participant.id}
+              participant={participant}
+              onClick={() => {
+                setSelectedParticipant(participant);
+                setIsDetailsOpen(true);
+              }}
+            />
+          ))}
         </div>
+
+        {filteredParticipants.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">
+              Nenhum participante encontrado
+            </p>
+          </div>
+        )}
       </div>
 
       <ParticipantFormModal

@@ -1,6 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 import { Mail, MapPin, Phone, Edit, Trash2 } from 'lucide-react';
 import type { Participant } from '@/lib/types';
 import { DEPARTAMENTOS, type DepartamentoKey } from '@/lib/types';
@@ -22,7 +23,6 @@ export default function ParticipantDetailsModal({
 }: ParticipantDetailsModalProps) {
   if (!participant) return null;
 
-  const departamento = DEPARTAMENTOS[participant.departamento as DepartamentoKey];
   const initials = participant.nome
     .split(' ')
     .map(n => n[0])
@@ -46,16 +46,32 @@ export default function ParticipantDetailsModal({
               <h3 className="font-semibold text-xl" data-testid="text-participant-name">
                 {participant.nome}
               </h3>
-              <Badge className={`mt-1 ${departamento.bgColor} border-0`}>
-                {departamento.nome}
-              </Badge>
+              <p className="text-sm text-muted-foreground mt-1">
+                {participant.assignments.length} {participant.assignments.length === 1 ? 'departamento' : 'departamentos'}
+              </p>
             </div>
           </div>
 
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>Função</Label>
-              <p className="text-sm" data-testid="text-participant-function">{participant.funcao}</p>
+            <div className="space-y-3">
+              <Label>Departamentos e Funções</Label>
+              <div className="space-y-2">
+                {participant.assignments.map((assignment, idx) => {
+                  const dept = DEPARTAMENTOS[assignment.departamento];
+                  return (
+                    <Card key={idx} className="p-3">
+                      <div className="flex items-start gap-2">
+                        <Badge className={`${dept.bgColor} border-0 flex-shrink-0`}>
+                          {dept.nome}
+                        </Badge>
+                        <p className="text-sm flex-1" data-testid={`text-assignment-${idx}`}>
+                          {assignment.funcao}
+                        </p>
+                      </div>
+                    </Card>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="space-y-2">

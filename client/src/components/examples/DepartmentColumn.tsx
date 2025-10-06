@@ -8,8 +8,9 @@ export default function DepartmentColumnExample() {
       telefone: '(91) 98765-4321',
       email: 'joao@email.com',
       cidadeEstado: 'Belém, PA',
-      departamento: 'marketing',
-      funcao: 'Mídias Sociais (Postagens e ADS)'
+      assignments: [
+        { departamento: 'marketing' as const, funcao: 'Mídias Sociais (Postagens e ADS)' }
+      ]
     },
     {
       id: '2',
@@ -17,8 +18,9 @@ export default function DepartmentColumnExample() {
       telefone: '(91) 98765-1234',
       email: 'maria@email.com',
       cidadeEstado: 'Ananindeua, PA',
-      departamento: 'marketing',
-      funcao: 'Comunicação em Campo (Carro/Bike/Moto de Som)'
+      assignments: [
+        { departamento: 'marketing' as const, funcao: 'Comunicação em Campo (Carro/Bike/Moto de Som)' }
+      ]
     }
   ];
 
