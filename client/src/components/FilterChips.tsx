@@ -6,9 +6,10 @@ interface FilterChipsProps {
   selectedDepartments: DepartamentoKey[];
   onToggle: (dept: DepartamentoKey) => void;
   onClear: () => void;
+  departmentCounts?: Record<DepartamentoKey, number>;
 }
 
-export default function FilterChips({ selectedDepartments, onToggle, onClear }: FilterChipsProps) {
+export default function FilterChips({ selectedDepartments, onToggle, onClear, departmentCounts }: FilterChipsProps) {
   const departmentKeys = Object.keys(DEPARTAMENTOS) as DepartamentoKey[];
 
   return (
@@ -17,6 +18,7 @@ export default function FilterChips({ selectedDepartments, onToggle, onClear }: 
       {departmentKeys.map((key) => {
         const dept = DEPARTAMENTOS[key];
         const isSelected = selectedDepartments.includes(key);
+        const count = departmentCounts?.[key] ?? 0;
         
         return (
           <Badge
@@ -29,6 +31,13 @@ export default function FilterChips({ selectedDepartments, onToggle, onClear }: 
             data-testid={`filter-chip-${key}`}
           >
             {dept.nome}
+            {count > 0 && (
+              <span className={`ml-1.5 px-1.5 py-0.5 rounded-full text-xs font-semibold ${
+                isSelected ? 'bg-white/20' : 'bg-primary/10'
+              }`}>
+                {count}
+              </span>
+            )}
             {isSelected && <X className="ml-1 h-3 w-3" />}
           </Badge>
         );

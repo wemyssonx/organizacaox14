@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Mail, MapPin, Phone, Edit, Trash2 } from 'lucide-react';
 import type { Participant } from '@/lib/types';
 import { DEPARTAMENTOS, type DepartamentoKey } from '@/lib/types';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ParticipantDetailsModalProps {
   participant: Participant | null;
@@ -21,6 +22,8 @@ export default function ParticipantDetailsModal({
   onEdit,
   onDelete 
 }: ParticipantDetailsModalProps) {
+  const { isAdmin } = useAuth();
+  
   if (!participant) return null;
 
   const initials = participant.nome
@@ -97,30 +100,32 @@ export default function ParticipantDetailsModal({
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t">
-            <Button
-              variant="outline"
-              onClick={() => {
-                onEdit?.(participant);
-                onClose();
-              }}
-              data-testid="button-edit-participant"
-            >
-              <Edit className="h-4 w-4 mr-2" />
-              Editar
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={() => {
-                onDelete?.(participant);
-                onClose();
-              }}
-              data-testid="button-delete-participant"
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Excluir
-            </Button>
-          </div>
+          {isAdmin && (
+            <div className="flex justify-end gap-3 pt-4 border-t">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  onEdit?.(participant);
+                  onClose();
+                }}
+                data-testid="button-edit-participant"
+              >
+                <Edit className="h-4 w-4 mr-2" />
+                Editar
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  onDelete?.(participant);
+                  onClose();
+                }}
+                data-testid="button-delete-participant"
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Excluir
+              </Button>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>

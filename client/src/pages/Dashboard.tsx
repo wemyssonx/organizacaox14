@@ -8,9 +8,11 @@ import ParticipantDetailsModal from '@/components/ParticipantDetailsModal';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import { DEPARTAMENTOS, type DepartamentoKey, type Participant } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Dashboard() {
   const { toast } = useToast();
+  const { isAdmin } = useAuth();
   const [participants, setParticipants] = useState<Participant[]>([
     {
       id: '1',
@@ -202,6 +204,7 @@ export default function Dashboard() {
             selectedDepartments={selectedDepartments}
             onToggle={handleToggleDepartment}
             onClear={() => setSelectedDepartments([])}
+            departmentCounts={departmentStats}
           />
         </div>
 
@@ -248,10 +251,12 @@ export default function Dashboard() {
         onDelete={handleDeleteParticipant}
       />
 
-      <FloatingActionButton onClick={() => {
-        setEditingParticipant(undefined);
-        setIsFormOpen(true);
-      }} />
+      {isAdmin && (
+        <FloatingActionButton onClick={() => {
+          setEditingParticipant(undefined);
+          setIsFormOpen(true);
+        }} />
+      )}
     </div>
   );
 }
