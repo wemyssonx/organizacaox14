@@ -1,4 +1,4 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import { IncomingMessage, ServerResponse } from 'http';
 import express from 'express';
 import { registerRoutes } from './routes';
 
@@ -10,6 +10,6 @@ app.use(express.urlencoded({ extended: false }));
   await registerRoutes(app);
 })();
 
-export default (req: VercelRequest, res: VercelResponse) => {
+export default (req: IncomingMessage, res: ServerResponse) => {
   app(req, res);
 };
